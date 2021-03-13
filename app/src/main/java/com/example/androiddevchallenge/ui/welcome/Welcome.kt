@@ -15,14 +15,30 @@
  */
 package com.example.androiddevchallenge.ui.welcome
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.paddingFromBaseline
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 @Composable
@@ -34,6 +50,105 @@ fun Welcome(
     MyTheme(darkTheme = darkTheme) {
         Scaffold { innerPadding ->
             modifier.padding(innerPadding)
+
+            Surface(
+                modifier = modifier
+                    .fillMaxSize(),
+                color = MaterialTheme.colors.primary
+            ) {
+                Image(
+                    painter = painterResource(R.drawable.welcome_bg),
+                    contentDescription = null,
+                    alignment = Alignment.TopStart
+                )
+
+                WelcomeContent(modifier = modifier)
+            }
+        }
+    }
+}
+
+@Composable
+fun WelcomeContent(
+    modifier: Modifier = Modifier,
+) {
+    ConstraintLayout {
+        val (image, logo, subtitle, createAccountButton, loginButton) = createRefs()
+
+        Image(
+            modifier = modifier
+                .padding(top = 72.dp, start = 88.dp, bottom = 48.dp)
+                .constrainAs(image) {
+                    top.linkTo(parent.top)
+                    start.linkTo(parent.start)
+                },
+            painter = painterResource(R.drawable.welcome_illos),
+            contentDescription = null
+        )
+
+        Image(
+            modifier = modifier
+                .constrainAs(logo) {
+                    top.linkTo(image.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                },
+            painter = painterResource(R.drawable.logo),
+            contentDescription = null
+        )
+
+        Text(
+            modifier = modifier
+                .constrainAs(subtitle) {
+                    top.linkTo(logo.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }
+                .paddingFromBaseline(top = 32.dp, bottom = 40.dp),
+            text = "Beautiful home garden solutions",
+            style = MaterialTheme.typography.subtitle1,
+        )
+
+        Button(
+            modifier = modifier
+                .constrainAs(createAccountButton) {
+                    top.linkTo(subtitle.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }
+                .height(48.dp)
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 16.dp),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = MaterialTheme.colors.secondary
+            ),
+            shape = MaterialTheme.shapes.medium,
+            onClick = {}
+        ) {
+            Text(
+                text = "Create account",
+                style = MaterialTheme.typography.button,
+                color = MaterialTheme.colors.onSecondary
+            )
+        }
+
+        TextButton(
+            modifier = modifier
+                .constrainAs(loginButton) {
+                    top.linkTo(createAccountButton.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }
+                .height(56.dp)
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 16.dp, top = 8.dp),
+            onClick = {}
+        ) {
+            Text(
+                text = "Log in",
+                style = MaterialTheme.typography.button,
+                color = MaterialTheme.colors.secondary
+            )
         }
     }
 }
