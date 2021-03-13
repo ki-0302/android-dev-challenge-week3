@@ -18,44 +18,51 @@ package com.example.androiddevchallenge
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.example.androiddevchallenge.ui.navigation.AppNavigation
+import com.example.androiddevchallenge.ui.overview.OverviewScreen
 import com.example.androiddevchallenge.ui.theme.MyTheme
+import com.example.androiddevchallenge.ui.utils.LocalSysUiController
+import com.example.androiddevchallenge.ui.utils.SystemUiController
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyTheme {
-                MyApp()
+            val systemUiController = remember { SystemUiController(window) }
+            CompositionLocalProvider(LocalSysUiController provides systemUiController) {
+                MyTheme {
+                    AppNavigation()
+                }
             }
         }
     }
 }
 
-// Start building your app here!
-@Composable
-fun MyApp() {
-    Surface(color = MaterialTheme.colors.background) {
-        Text(text = "Ready... Set... GO!")
-    }
-}
-
-@Preview("Light Theme", widthDp = 360, heightDp = 640)
+@Preview("Light Theme", widthDp = 360, heightDp = 640, showSystemUi = true)
 @Composable
 fun LightPreview() {
     MyTheme {
-        MyApp()
+        OverviewScreenPreview(darkTheme = false)
     }
 }
 
-@Preview("Dark Theme", widthDp = 360, heightDp = 640)
+@Preview("Dark Theme", widthDp = 360, heightDp = 640, showSystemUi = true)
 @Composable
 fun DarkPreview() {
     MyTheme(darkTheme = true) {
-        MyApp()
+        OverviewScreenPreview(darkTheme = true)
     }
+}
+
+@Composable
+fun OverviewScreenPreview(darkTheme: Boolean = false) {
+    OverviewScreen(
+        navController = rememberNavController(),
+        darkTheme = darkTheme
+    )
 }
