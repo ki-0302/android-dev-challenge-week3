@@ -23,21 +23,27 @@ import com.example.androiddevchallenge.ui.home.Home
 import com.example.androiddevchallenge.ui.login.Login
 import com.example.androiddevchallenge.ui.welcome.Welcome
 
+enum class NavigationId(val value: String) {
+    WELCOME("welcome"),
+    LOGIN("login"),
+    HOME("home")
+}
+
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
-    NavHost(navController, startDestination = "welcome") {
-        composable("welcome") {
+    NavHost(navController, startDestination = NavigationId.WELCOME.value) {
+        composable(NavigationId.WELCOME.value) {
             Welcome(
                 navController = navController
             )
         }
-        composable("login") {
+        composable(NavigationId.LOGIN.value) {
             Login(
                 navController = navController
             )
         }
-        composable("home") {
+        composable(NavigationId.HOME.value) {
             Home(
                 navController = navController
             )
