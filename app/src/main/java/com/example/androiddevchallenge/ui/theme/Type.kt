@@ -19,7 +19,6 @@ import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.androiddevchallenge.R
 
@@ -42,25 +41,21 @@ val typography = Typography(
     ),
     body1 = TextStyle(
         fontFamily = FontFamily(Font(R.font.nunito_sans_light)),
-        fontWeight = FontWeight.W300,
         fontSize = 18.sp,
         letterSpacing = 0.sp
     ),
     body2 = TextStyle(
         fontFamily = FontFamily(Font(R.font.nunito_sans_light)),
-        fontWeight = FontWeight.W300,
         fontSize = 18.sp,
         letterSpacing = 0.sp
     ),
     button = TextStyle(
         fontFamily = FontFamily(Font(R.font.nunito_sans_semi_bold)),
-        fontWeight = FontWeight.W300,
         fontSize = 18.sp,
-        letterSpacing = 0.sp
+        letterSpacing = 1.sp
     ),
     caption = TextStyle(
         fontFamily = FontFamily(Font(R.font.nunito_sans_semi_bold)),
-        fontWeight = FontWeight.W300,
         fontSize = 18.sp,
         letterSpacing = 0.sp
     )
