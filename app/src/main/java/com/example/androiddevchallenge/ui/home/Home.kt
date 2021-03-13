@@ -17,6 +17,7 @@ package com.example.androiddevchallenge.ui.home
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.ui.theme.MyTheme
+import com.example.androiddevchallenge.ui.theme.getMaterialColor
 
 @Composable
 fun Home(
@@ -31,7 +33,7 @@ fun Home(
     navController: NavController,
     darkTheme: Boolean = isSystemInDarkTheme()
 ) {
-    MyTheme(darkTheme = darkTheme) {
+    MyTheme(darkTheme = darkTheme, systemUiColor = getMaterialColor(darkTheme).background) {
         Scaffold { innerPadding ->
             modifier.padding(innerPadding)
         }

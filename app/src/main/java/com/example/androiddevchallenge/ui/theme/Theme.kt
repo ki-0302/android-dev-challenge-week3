@@ -46,23 +46,27 @@ private val DarkColorPalette = darkColors(
     onSurface = white850
 )
 
-@Composable
-fun MyTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
-    val colors = if (darkTheme) {
+fun getMaterialColor(darkTheme: Boolean) =
+    if (darkTheme) {
         DarkColorPalette
     } else {
         LightColorPalette
     }
+
+@Composable
+fun MyTheme(darkTheme: Boolean = isSystemInDarkTheme(), systemUiColor: Color, content: @Composable() () -> Unit) {
+    val colors = getMaterialColor(darkTheme = darkTheme)
+
     val sysUiController = LocalSysUiController.current
     SideEffect {
         sysUiController.setSystemBarsColor(
-            color = colors.primary
+            color = systemUiColor
         )
         sysUiController.setStatusBarColor(
-            color = colors.primary
+            color = systemUiColor
         )
         sysUiController.setNavigationBarColor(
-            color = colors.primary
+            color = systemUiColor
         )
     }
 

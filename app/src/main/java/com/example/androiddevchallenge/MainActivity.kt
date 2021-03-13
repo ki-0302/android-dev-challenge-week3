@@ -24,10 +24,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.ui.navigation.AppNavigation
-import com.example.androiddevchallenge.ui.overview.OverviewScreen
-import com.example.androiddevchallenge.ui.theme.MyTheme
 import com.example.androiddevchallenge.ui.utils.LocalSysUiController
 import com.example.androiddevchallenge.ui.utils.SystemUiController
+import com.example.androiddevchallenge.ui.welcome.Welcome
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,9 +34,7 @@ class MainActivity : AppCompatActivity() {
         setContent {
             val systemUiController = remember { SystemUiController(window) }
             CompositionLocalProvider(LocalSysUiController provides systemUiController) {
-                MyTheme {
-                    AppNavigation()
-                }
+                AppNavigation()
             }
         }
     }
@@ -46,22 +43,18 @@ class MainActivity : AppCompatActivity() {
 @Preview("Light Theme", widthDp = 360, heightDp = 640, showSystemUi = true)
 @Composable
 fun LightPreview() {
-    MyTheme {
-        OverviewScreenPreview(darkTheme = false)
-    }
+    MainActivityPreview(darkTheme = false)
 }
 
 @Preview("Dark Theme", widthDp = 360, heightDp = 640, showSystemUi = true)
 @Composable
 fun DarkPreview() {
-    MyTheme(darkTheme = true) {
-        OverviewScreenPreview(darkTheme = true)
-    }
+    MainActivityPreview(darkTheme = true)
 }
 
 @Composable
-fun OverviewScreenPreview(darkTheme: Boolean = false) {
-    OverviewScreen(
+fun MainActivityPreview(darkTheme: Boolean = false) {
+    Welcome(
         navController = rememberNavController(),
         darkTheme = darkTheme
     )

@@ -37,9 +37,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
+import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.R
+import com.example.androiddevchallenge.ui.navigation.NavigationId
 import com.example.androiddevchallenge.ui.theme.MyTheme
+import com.example.androiddevchallenge.ui.theme.getMaterialColor
 
 @Composable
 fun Welcome(
@@ -47,7 +50,7 @@ fun Welcome(
     navController: NavController,
     darkTheme: Boolean = isSystemInDarkTheme()
 ) {
-    MyTheme(darkTheme = darkTheme) {
+    MyTheme(darkTheme = darkTheme, systemUiColor = getMaterialColor(darkTheme).primary) {
         Scaffold { innerPadding ->
             modifier.padding(innerPadding)
 
@@ -62,7 +65,7 @@ fun Welcome(
                     alignment = Alignment.TopStart
                 )
 
-                WelcomeContent(modifier = modifier)
+                WelcomeContent(modifier = modifier, navController = navController)
             }
         }
     }
@@ -71,6 +74,7 @@ fun Welcome(
 @Composable
 fun WelcomeContent(
     modifier: Modifier = Modifier,
+    navController: NavController,
 ) {
     ConstraintLayout {
         val (image, logo, subtitle, createAccountButton, loginButton) = createRefs()
@@ -142,7 +146,9 @@ fun WelcomeContent(
                 .height(56.dp)
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp, top = 8.dp),
-            onClick = {}
+            onClick = {
+                navController.navigate(NavigationId.LOGIN.value)
+            }
         ) {
             Text(
                 text = "Log in",
