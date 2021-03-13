@@ -41,22 +41,22 @@ val typography = Typography(
     ),
     body1 = TextStyle(
         fontFamily = FontFamily(Font(R.font.nunito_sans_light)),
-        fontSize = 18.sp,
+        fontSize = 14.sp,
         letterSpacing = 0.sp
     ),
     body2 = TextStyle(
         fontFamily = FontFamily(Font(R.font.nunito_sans_light)),
-        fontSize = 18.sp,
+        fontSize = 12.sp,
         letterSpacing = 0.sp
     ),
     button = TextStyle(
         fontFamily = FontFamily(Font(R.font.nunito_sans_semi_bold)),
-        fontSize = 18.sp,
+        fontSize = 14.sp,
         letterSpacing = 1.sp
     ),
     caption = TextStyle(
         fontFamily = FontFamily(Font(R.font.nunito_sans_semi_bold)),
-        fontSize = 18.sp,
+        fontSize = 12.sp,
         letterSpacing = 0.sp
     )
 )
