@@ -249,7 +249,8 @@ private fun CheckboxImpl(
     Canvas(
         modifier
             .wrapContentSize(Alignment.Center)
-            .requiredSize(CheckboxSize)) {
+            .requiredSize(CheckboxSize)
+    ) {
         val strokeWidthPx = floor(StrokeWidth.toPx())
         val strokeWidth = floor(0.dp.toPx())
         drawBox(
