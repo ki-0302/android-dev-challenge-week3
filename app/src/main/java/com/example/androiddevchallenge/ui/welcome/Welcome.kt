@@ -42,7 +42,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.ui.navigation.NavigationId
 import com.example.androiddevchallenge.ui.theme.MyTheme
-import com.example.androiddevchallenge.ui.theme.getMaterialColor
 
 @Composable
 fun Welcome(
@@ -50,7 +49,7 @@ fun Welcome(
     navController: NavController,
     darkTheme: Boolean = isSystemInDarkTheme()
 ) {
-    MyTheme(darkTheme = darkTheme, systemUiColor = getMaterialColor(darkTheme).primary) {
+    MyTheme(darkTheme = darkTheme) {
         Scaffold { innerPadding ->
             modifier.padding(innerPadding)
 

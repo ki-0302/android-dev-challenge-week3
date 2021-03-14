@@ -17,8 +17,10 @@ package com.example.androiddevchallenge.ui.login
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -37,19 +39,23 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.AlignmentLine
+import androidx.compose.ui.layout.FirstBaseline
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.ui.navigation.NavigationId
 import com.example.androiddevchallenge.ui.theme.MyTheme
-import com.example.androiddevchallenge.ui.theme.getMaterialColor
 import com.example.androiddevchallenge.ui.theme.lightGray
 
 @Composable
@@ -58,7 +64,7 @@ fun Login(
     navController: NavController,
     darkTheme: Boolean = isSystemInDarkTheme()
 ) {
-    MyTheme(darkTheme = darkTheme, systemUiColor = getMaterialColor(darkTheme).background) {
+    MyTheme(darkTheme = darkTheme) {
         Scaffold { innerPadding ->
             modifier.padding(innerPadding)
             Column {
@@ -86,10 +92,13 @@ fun LoginContent(
             color = MaterialTheme.colors.onBackground
         )
 
-        InputText(
-            modifier = modifier.padding(bottom = 8.dp),
-            placeholder = "Email Address"
-        )
+        Column(modifier = modifier.padding(bottom = 8.dp)) {
+            InputText(
+                modifier = modifier,
+                placeholder = "Email Address"
+            )
+        }
+
         InputText(
             modifier = modifier,
             placeholder = "Password (8+ characters)"
@@ -150,22 +159,37 @@ fun InputText(
         contentAlignment = Alignment.CenterStart,
     ) {
         BasicTextField(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp)
                 .border(1.dp, lightGray, MaterialTheme.shapes.small),
             value = text,
             onValueChange = { text = it },
-            textStyle = MaterialTheme.typography.body1,
-
+            singleLine = true,
+            textStyle = TextStyle(
+                fontStyle = MaterialTheme.typography.body1.fontStyle,
+                color = MaterialTheme.colors.onPrimary
+            ),
+            decorationBox = { innerTextField ->
+                Column(
+                    modifier = modifier
+                        .padding(start = 16.dp, end = 16.dp)
+                        .fillMaxHeight(),
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    innerTextField()
+                }
+            }
         )
 
         if (text.isEmpty()) {
             Text(
-                modifier = modifier
+                modifier = Modifier
                     .padding(start = 16.dp)
                     .fillMaxWidth(),
-                text = placeholder
+                text = placeholder,
+                style = MaterialTheme.typography.body1,
+                color = MaterialTheme.colors.onPrimary
             )
         }
     }
