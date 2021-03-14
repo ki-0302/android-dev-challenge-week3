@@ -81,7 +81,6 @@ fun getShadowColor(darkTheme: Boolean) =
 @Composable
 fun MyTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    statusBarHide: Boolean,
     content: @Composable() () -> Unit
 ) {
     val colors = getMaterialColor(darkTheme = darkTheme)
