@@ -15,7 +15,6 @@
  */
 package com.example.androiddevchallenge.ui.navigation
 
-import android.content.res.Configuration
 import androidx.annotation.StringRes
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
