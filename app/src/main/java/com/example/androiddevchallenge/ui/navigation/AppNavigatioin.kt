@@ -15,7 +15,9 @@
  */
 package com.example.androiddevchallenge.ui.navigation
 
+import android.content.res.Configuration
 import androidx.annotation.StringRes
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -49,7 +51,10 @@ val bottomNavigationItems = listOf(
 )
 
 @Composable
-fun AppNavigation(hideStatusBar: (Boolean) -> Unit) {
+fun AppNavigation(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    hideStatusBar: (Boolean) -> Unit
+) {
     val navController = rememberNavController()
     NavHost(navController, startDestination = NavigationId.WELCOME.value) {
         composable(NavigationId.WELCOME.value) {
@@ -65,25 +70,25 @@ fun AppNavigation(hideStatusBar: (Boolean) -> Unit) {
             )
         }
         composable(NavigationId.HOME.value) {
-            hideStatusBar(true)
+            hideStatusBar(darkTheme)
             Home(
                 navController = navController
             )
         }
         composable(NavigationId.FAVORITES.value) {
-            hideStatusBar(true)
+            hideStatusBar(darkTheme)
             Home(
                 navController = navController
             )
         }
         composable(NavigationId.PROFILE.value) {
-            hideStatusBar(true)
+            hideStatusBar(darkTheme)
             Home(
                 navController = navController
             )
         }
         composable(NavigationId.CART.value) {
-            hideStatusBar(true)
+            hideStatusBar(darkTheme)
             Home(
                 navController = navController
             )
