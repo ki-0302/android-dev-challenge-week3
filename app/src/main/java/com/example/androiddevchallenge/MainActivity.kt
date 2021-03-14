@@ -15,27 +15,67 @@
  */
 package com.example.androiddevchallenge
 
+import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.ui.navigation.AppNavigation
-import com.example.androiddevchallenge.ui.utils.LocalSysUiController
-import com.example.androiddevchallenge.ui.utils.SystemUiController
 import com.example.androiddevchallenge.ui.welcome.Welcome
 
 class MainActivity : AppCompatActivity() {
+
+    private var hideStatusBar = false
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) hideSystemUI(hideStatusBar)
+    }
+
+    private fun hideSystemUI(hideStatusBar: Boolean) {
+        this.hideStatusBar = hideStatusBar
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.setDecorFitsSystemWindows(false)
+            window.insetsController?.let {
+                if (hideStatusBar) {
+                    it.hide(WindowInsets.Type.systemBars())
+                } else {
+                    it.show(WindowInsets.Type.statusBars())
+                    it.hide(WindowInsets.Type.navigationBars())
+                }
+                it.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            }
+        } else {
+            if (hideStatusBar) {
+                window.decorView.systemUiVisibility = (
+                    View.SYSTEM_UI_FLAG_IMMERSIVE
+                        or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        or View.SYSTEM_UI_FLAG_FULLSCREEN
+                    )
+            } else {
+                window.decorView.systemUiVisibility = (
+                    View.SYSTEM_UI_FLAG_IMMERSIVE
+                        or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    )
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val systemUiController = remember { SystemUiController(window) }
-            CompositionLocalProvider(LocalSysUiController provides systemUiController) {
-                AppNavigation()
-            }
+            AppNavigation { callBack -> hideSystemUI(callBack) }
         }
     }
 }

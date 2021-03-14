@@ -15,10 +15,12 @@
  */
 package com.example.androiddevchallenge.ui.navigation
 
+import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.ui.home.Home
 import com.example.androiddevchallenge.ui.login.Login
 import com.example.androiddevchallenge.ui.welcome.Welcome
@@ -26,24 +28,62 @@ import com.example.androiddevchallenge.ui.welcome.Welcome
 enum class NavigationId(val value: String) {
     WELCOME("welcome"),
     LOGIN("login"),
-    HOME("home")
+    HOME("home"),
+    FAVORITES("favorites"),
+    PROFILE("profile"),
+    CART("cart"),
 }
 
+sealed class Screen(val route: String, @StringRes val resourceId: Int) {
+    object Home : Screen(NavigationId.HOME.value, R.string.home)
+    object Favorites : Screen(NavigationId.FAVORITES.value, R.string.favorites)
+    object Profile : Screen(NavigationId.PROFILE.value, R.string.profile)
+    object Cart : Screen(NavigationId.CART.value, R.string.cart)
+}
+
+val bottomNavigationItems = listOf(
+    Screen.Home,
+    Screen.Favorites,
+    Screen.Profile,
+    Screen.Cart
+)
+
 @Composable
-fun AppNavigation() {
+fun AppNavigation(hideStatusBar: (Boolean) -> Unit) {
     val navController = rememberNavController()
     NavHost(navController, startDestination = NavigationId.WELCOME.value) {
         composable(NavigationId.WELCOME.value) {
+            hideStatusBar(false)
             Welcome(
                 navController = navController
             )
         }
         composable(NavigationId.LOGIN.value) {
+            hideStatusBar(false)
             Login(
                 navController = navController
             )
         }
         composable(NavigationId.HOME.value) {
+            hideStatusBar(true)
+            Home(
+                navController = navController
+            )
+        }
+        composable(NavigationId.FAVORITES.value) {
+            hideStatusBar(true)
+            Home(
+                navController = navController
+            )
+        }
+        composable(NavigationId.PROFILE.value) {
+            hideStatusBar(true)
+            Home(
+                navController = navController
+            )
+        }
+        composable(NavigationId.CART.value) {
+            hideStatusBar(true)
             Home(
                 navController = navController
             )

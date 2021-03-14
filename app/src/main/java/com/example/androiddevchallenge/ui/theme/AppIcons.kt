@@ -26,11 +26,11 @@ import androidx.compose.material.icons.filled.ShoppingCart
 
 class AppIcons {
     companion object {
-        val accountCircle = Icons.Filled.AccountCircle
+        val profile = Icons.Filled.AccountCircle
         val search = Icons.Filled.Search
-        val favoriteBorder = Icons.Filled.FavoriteBorder
+        val favorites = Icons.Filled.FavoriteBorder
         val home = Icons.Filled.Home
-        val shoppingCart = Icons.Filled.ShoppingCart
+        val cart = Icons.Filled.ShoppingCart
         val filterList = Icons.Filled.FilterList
         val done = Icons.Filled.Done
     }

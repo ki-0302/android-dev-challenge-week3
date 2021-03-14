@@ -20,9 +20,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
-import androidx.compose.ui.graphics.Color
-import com.example.androiddevchallenge.ui.utils.LocalSysUiController
 
 private val LightColorPalette = lightColors(
     primary = pink100,
@@ -53,22 +50,41 @@ fun getMaterialColor(darkTheme: Boolean) =
         LightColorPalette
     }
 
-@Composable
-fun MyTheme(darkTheme: Boolean = isSystemInDarkTheme(), systemUiColor: Color, content: @Composable() () -> Unit) {
-    val colors = getMaterialColor(darkTheme = darkTheme)
-
-    val sysUiController = LocalSysUiController.current
-    SideEffect {
-        sysUiController.setSystemBarsColor(
-            color = systemUiColor
-        )
-        sysUiController.setStatusBarColor(
-            color = systemUiColor
-        )
-        sysUiController.setNavigationBarColor(
-            color = systemUiColor
-        )
+fun getCardBackgroundColor(darkTheme: Boolean) =
+    if (darkTheme) {
+        darkGray
+    } else {
+        white
     }
+
+fun getCheckBoxBackgroundColor(darkTheme: Boolean) =
+    if (darkTheme) {
+        darkCheckBox
+    } else {
+        lightCheckBox
+    }
+
+fun getCheckForeground(darkTheme: Boolean) =
+    if (darkTheme) {
+        darkCheckForeground
+    } else {
+        lightCheckForeground
+    }
+
+fun getShadowColor(darkTheme: Boolean) =
+    if (darkTheme) {
+        darkShadow
+    } else {
+        lightShadow
+    }
+
+@Composable
+fun MyTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    statusBarHide: Boolean,
+    content: @Composable() () -> Unit
+) {
+    val colors = getMaterialColor(darkTheme = darkTheme)
 
     MaterialTheme(
         colors = colors,
